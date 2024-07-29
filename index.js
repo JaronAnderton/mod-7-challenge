@@ -40,12 +40,12 @@ const questions = [
     name: "license",
     message: "Please select a license for this project.",
     choices: [
-      "Apache 2.0",
-      "GNU GPLv3",
       "MIT",
+      "Apache 2.0",
+      "Mozilla",
+      "GNU GPLv3",
       "GNU AGPLv3",
       "GNU LGPLv3",
-      "Mozilla",
     ],
   },
   {
@@ -61,11 +61,47 @@ const questions = [
   },
 ];
 
+// Function for markdown license badges
+
+function getLicense(value) {
+  if (value === "MIT") {
+    return "[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)";
+  } else if (value === "Apache 2.0") {
+    return "[![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)";
+  } else if (value === "Mozilla") {
+    return "[![License: MPL 2.0](https://img.shields.io/badge/License-MPL_2.0-brightgreen.svg)](https://opensource.org/licenses/MPL-2.0)";
+  } else if (value === "GNU GPLv3") {
+    return "[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)";
+  } else if (value === "GNU AGPLv3") {
+    return "[![License: AGPL v3](https://img.shields.io/badge/License-AGPL_v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)";
+  } else if (value === "GNU LGPLv3") {
+    return "[![License: LGPL v3](https://img.shields.io/badge/License-LGPL_v3-blue.svg)](https://www.gnu.org/licenses/lgpl-3.0)";
+  }
+}
+
+function validateInput(value) {
+    if (value != "") {
+        return true;
+    } else {
+        return "Please answer the question with some kind on input.";
+    }
+}
+
 // TODO: Create a function to write README file
-function writeToFile(fileName, data) {}
+function writeToFile(fileName, data) {
+  fs.writeFile(fileName, generateMarkdown(data), function (err) {
+    if (err) {
+      return console.log(err);
+    }
+  });
+}
 
 // TODO: Create a function to initialize app
-function init() {}
+function init() {
+    inquirer.prompt(questions).then((responses) => {
+      writeToFile("README.md", responses);
+    });
+  }
 
 // Function call to initialize app
 init();
