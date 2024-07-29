@@ -1,4 +1,6 @@
 // TODO: Include packages needed for this application
+import fs from 'fs';
+import inquirer from 'inquirer';
 
 // TODO: Create an array of questions for user input
 const questions = [];
