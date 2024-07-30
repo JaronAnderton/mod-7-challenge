@@ -61,7 +61,7 @@ const questions = [
   },
 ];
 
-// Function to write README file
+// TODO: Create a function to write README file
 function writeToFile(fileName, data) {
   fs.writeFile(fileName, data, function (err) {
     if (err) {
@@ -71,7 +71,7 @@ function writeToFile(fileName, data) {
   });
 }
 
-// Function to initialize app
+// TODO: Create a function to initialize app
 function init() {
   inquirer.prompt(questions).then((data) => {
     console.log(JSON.stringify(data, null, " "));
